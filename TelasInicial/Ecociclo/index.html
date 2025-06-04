@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login e Cadastro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div class="w-full max-w-md mx-auto bg-white rounded-lg shadow-xl">
+        <div class="p-6">
+            <!-- Tab Headers -->
+            <div class="flex mb-6 bg-gray-100 rounded-lg p-1">
+                <button 
+                    id="loginTab" 
+                    class="tab-button flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all bg-white text-blue-600 shadow-sm"
+                    onclick="switchTab('login')"
+                >
+                    Login
+                </button>
+                <button 
+                    id="registerTab" 
+                    class="tab-button flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all text-gray-600 hover:text-gray-800"
+                    onclick="switchTab('register')"
+                >
+                    Cadastro
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="form-content">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Bem-vindo de volta</h2>
+                    <p class="text-gray-600">Entre na sua conta para continuar</p>
+                </div>
+
+                <form onsubmit="handleLogin(event)" class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="loginEmail" class="text-sm font-medium">Email</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="loginEmail"
+                                type="email"
+                                placeholder="seu@email.com"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="loginPassword" class="text-sm font-medium">Senha</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="loginPassword"
+                                type="password"
+                                placeholder="••••••••"
+                                class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onclick="togglePassword('loginPassword')"
+                                class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input
+                                type="checkbox"
+                                class="rounded border-gray-300 text-blue-600"
+                            />
+                            <span class="ml-2 text-sm text-gray-600">Lembrar-me</span>
+                        </label>
+                        <a href="#" class="text-sm text-blue-600 hover:underline">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                    >
+                        Entrar
+                    </button>
+                </form>
+
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Ou continue com</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <button class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-google mr-2 text-red-500"></i>
+                            Google
+                        </button>
+                        <button class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-facebook mr-2 text-blue-600"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div id="registerForm" class="form-content hidden">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-2">Criar conta</h2>
+                    <p class="text-gray-600">Preencha os dados para se cadastrar</p>
+                </div>
+
+                <form onsubmit="handleRegister(event)" class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="registerName" class="text-sm font-medium">Nome completo</label>
+                        <div class="relative">
+                            <i class="fas fa-user absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="registerName"
+                                type="text"
+                                placeholder="Seu nome completo"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="registerEmail" class="text-sm font-medium">Email</label>
+                        <div class="relative">
+                            <i class="fas fa-envelope absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="registerEmail"
+                                type="email"
+                                placeholder="seu@email.com"
+                                class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="registerPassword" class="text-sm font-medium">Senha</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="registerPassword"
+                                type="password"
+                                placeholder="••••••••"
+                                class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onclick="togglePassword('registerPassword')"
+                                class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="confirmPassword" class="text-sm font-medium">Confirmar senha</label>
+                        <div class="relative">
+                            <i class="fas fa-lock absolute left-3 top-3 h-4 w-4 text-gray-400"></i>
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                placeholder="••••••••"
+                                class="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                required
+                            />
+                            <button
+                                type="button"
+                                onclick="togglePassword('confirmPassword')"
+                                class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                            >
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            class="rounded border-gray-300 text-blue-600 mt-1"
+                            required
+                        />
+                        <label for="terms" class="ml-2 text-sm text-gray-600">
+                            Eu concordo com os
+                            <a href="#" class="text-blue-600 hover:underline">Termos de Serviço</a>
+                            e
+                            <a href="#" class="text-blue-600 hover:underline">Política de Privacidade</a>
+                        </label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+                    >
+                        Criar conta
+                    </button>
+                </form>
+
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Ou cadastre-se com</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <button class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-google mr-2 text-red-500"></i>
+                            Google
+                        </button>
+                        <button class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <i class="fab fa-facebook mr-2 text-blue-600"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-4 right-4 z-50"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
